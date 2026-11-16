@@ -12,6 +12,13 @@ for (const field of ['mint', 'create_signature']) {
   }
 }
 
+if (!/^[1-9A-HJ-NP-Za-km-z]{44}$/.test(launch.mint)) {
+  throw new Error('LAUNCH.json mint must be exactly 44 characters using only the Solana base58 alphabet.');
+}
+if (!/^[1-9A-HJ-NP-Za-km-z]{80,}$/.test(launch.create_signature)) {
+  throw new Error('LAUNCH.json create_signature must be at least 80 characters using only the base58 alphabet.');
+}
+
 const outputDir = process.env.MAKEFUN_OUTPUT_DIR || '/output';
 mkdirSync(outputDir, { recursive: true });
 copyFileSync(launchPath, join(outputDir, 'LAUNCH.json'));
